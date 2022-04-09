@@ -56,11 +56,63 @@ fun main() {
     WallService.add(newPost)
     println(newPost.text)
     println(newPost.id)
-    WallService.update(newPost, "anywhere")
-    //println(WallService.posts[0].text)
-    println(newPost.id)
-}
 
+    var changedPost = Post(
+        id = 0,
+        ownerId = 2,
+        fromId = 2,
+        createdBy = 2,
+        date = 1,
+        text = "anywhere",
+        replyOwnerId = 2,
+        replyPostId = 2,
+        friendsOnly = 2,
+        comments = Comment(
+            count = 2,
+            canClose = false,
+            canPost = false,
+            groupsCanPost = false,
+            canOpen = false
+        ),
+        copyright = Copyright(
+            id = 2,
+            link = "link2",
+            name = "cr2",
+            type = "Picture"
+        ),
+        likes = Likes(
+            count = 2,
+            userLikes = false,
+            canLike = false,
+            canPublish = false
+        ),
+        reposts = Reposts(
+            count = 2,
+            userReposted = false
+        ),
+        views = Views(
+            count = 2
+        ),
+        postType = "text+picture",
+        signerId = "2",
+        canPin = false,
+        canDelete = false,
+        canEdit = false,
+        isPinned = false,
+        markedAsAds = false,
+        isFavorite = false,
+        donut = Donat(
+            isDonat = false,
+            paidDuration = 2,
+            placeholder = Placeholder(),
+            canPublishFreeCopy = false,
+            editMode = "post"
+        ),
+        postponedId = false
+    )
+    WallService.update(newPost, changedPost)
+
+}
 
 object WallService {
     private var posts = emptyArray<Post>()
@@ -75,10 +127,12 @@ object WallService {
         return posts.last()
     }
 
-    fun update(post: Post, text: String): Boolean {
-        for ((index, postx) in posts.withIndex()) {
-            if (post.id == postx.id) {
-                posts[index] = post.copy(text = post.text + ":")
+    fun update(currentPost: Post, changedPost: Post): Boolean {
+        for ((index, post) in posts.withIndex()) {
+            if (currentPost.id == post.id) {
+                posts[index] = changedPost.copy(id = currentPost.id, date = currentPost.date)
+                println(posts[0].text)
+                println(posts[0].id)
                 return true
             }
         }
