@@ -1,6 +1,6 @@
 fun main() {
     var newPost = Post(
-        id = 1,
+        id = 0,
         ownerId = 1,
         fromId = 1,
         createdBy = 1,
@@ -52,93 +52,33 @@ fun main() {
             ),
         postponedId = true
     )
-        // WallService.add(new_post)
+
+    WallService.add(newPost)
+    println(newPost.text)
+    println(newPost.id)
+    WallService.update(newPost, "anywhere")
+    //println(WallService.posts[0].text)
+    println(newPost.id)
 }
 
-data class Comment (
-    val count: Int,
-    val canClose: Boolean,
-    val canPost: Boolean,
-    val groupsCanPost: Boolean,
-    val canOpen: Boolean
-    )
-
-data class Copyright (
-    val id: Int,
-    val link: String,
-    val name: String,
-    val type: String
-    )
-
-data class Likes (
-    val count: Int,
-    val userLikes: Boolean,
-    val canLike: Boolean,
-    val canPublish: Boolean
-    )
-
-data class Reposts (
-    val count: Int,
-    val userReposted: Boolean,
-    )
-
-data class Views (
-    val count: Int
-    )
-
-class Placeholder(
-)
-
-data class Donat (
-    val isDonat: Boolean,
-    val paidDuration: Int,
-    val placeholder: Placeholder,
-    val canPublishFreeCopy: Boolean,
-    val editMode: String
-)
-
-data class Post(
-    val id: Int,
-    val ownerId: Int,
-    val fromId: Int,
-    val createdBy: Int,
-    val date: Int,
-    val text: String,
-    val replyOwnerId: Int,
-    val replyPostId: Int,
-    val friendsOnly: Int,
-    val comments: Comment,
-    val copyright: Copyright,
-    val likes: Likes,
-    val reposts: Reposts,
-    val views: Views,
-    val postType: String,
-    val signerId: String,
-    val canPin: Boolean,
-    val canDelete: Boolean,
-    val canEdit: Boolean,
-    val isPinned: Boolean,
-    val markedAsAds: Boolean,
-    val isFavorite: Boolean,
-    val donut: Donat,
-    val postponedId: Boolean
-)
 
 object WallService {
-
     private var posts = emptyArray<Post>()
-    private val nextId  = posts.last().id+1
 
     fun add(post: Post): Post {
+        if (posts.isEmpty()) {
+         post.id = 1
+        } else {
+            post.id = posts.last().id + 1
+        }
         posts += post
         return posts.last()
     }
-    fun update(post: Post): Boolean {
 
-        for (pos in posts) {
-            if (post.id == pos.id) {
-                val text: String = "update"
-                println(text)
+    fun update(post: Post, text: String): Boolean {
+        for ((index, postx) in posts.withIndex()) {
+            if (post.id == postx.id) {
+                posts[index] = post.copy(text = post.text + ":")
                 return true
             }
         }
