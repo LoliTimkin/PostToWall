@@ -61,7 +61,7 @@ class WallServiceTest_Update {
             )
         WallService.add(postUpdated)
         var post = postUpdated.copy(id = 5)
-            val res = WallService.update(post, postUpdated)
+            val res = WallService.update(post)
 
             assertEquals(false, res)
         }
@@ -125,7 +125,7 @@ class WallServiceTest_Update {
         WallService.add(post)
 
         var postUpdated = Post(
-            id = 3,
+            id = 1,
             ownerId = 1,
             fromId = 1,
             createdBy = 1,
@@ -178,7 +178,7 @@ class WallServiceTest_Update {
             postponedId = true
         )
 
-        val res = WallService.update(post, postUpdated)
+        val res = WallService.update(postUpdated)
 
         assertEquals(true, res)
     }

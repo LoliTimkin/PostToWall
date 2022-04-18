@@ -58,7 +58,7 @@ fun main() {
     println(newPost.id)
 
     var changedPost = Post(
-        id = 0,
+        id = 1,
         ownerId = 2,
         fromId = 2,
         createdBy = 2,
@@ -110,32 +110,7 @@ fun main() {
         ),
         postponedId = false
     )
-    WallService.update(newPost, changedPost)
+    WallService.update(changedPost)
 
 }
 
-object WallService {
-    private var posts = emptyArray<Post>()
-
-    fun add(post: Post): Post {
-        if (posts.isEmpty()) {
-         post.id = 1
-        } else {
-            post.id = posts.last().id + 1
-        }
-        posts += post
-        return posts.last()
-    }
-
-    fun update(currentPost: Post, changedPost: Post): Boolean {
-        for ((index, post) in posts.withIndex()) {
-            if (currentPost.id == post.id) {
-                posts[index] = changedPost.copy(id = currentPost.id, date = currentPost.date)
-                println(posts[0].text)
-                println(posts[0].id)
-                return true
-            }
-        }
-        return false
-    }
-}
