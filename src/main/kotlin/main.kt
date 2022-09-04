@@ -14,8 +14,9 @@ fun main() {
                 canClose = true,
                 canPost = true,
                 groupsCanPost = true,
-                canOpen = true
-                ),
+                canOpen = true,
+                postId = 1,
+                text = "anything"),
         copyright = Copyright(
                 id = 1,
                 link = "link",
@@ -72,8 +73,9 @@ fun main() {
             canClose = false,
             canPost = false,
             groupsCanPost = false,
-            canOpen = false
-        ),
+            canOpen = false,
+            postId = 1,
+            text = "everything"),
         copyright = Copyright(
             id = 2,
             link = "link2",
@@ -111,6 +113,9 @@ fun main() {
         postponedId = false
     )
     WallService.update(changedPost)
+    val comment = CommentToPost(1,1,1,"it will not exceiption, now", 1)
+    WallService.createComment(1, comment)
 
+    println(WallService.comments.last())
 }
 
