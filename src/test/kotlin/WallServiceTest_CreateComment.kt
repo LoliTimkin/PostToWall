@@ -1,14 +1,20 @@
-import org.junit.Assert.*
 import org.junit.Test
 
-//import org.junit.jupiter.api.Test
+import org.junit.Assert.*
 
-class WallServiceTest {
+class WallServiceTest_CreateComment {
+
+    //
+    @Test(expected = WallService.PostNotFoundException::class)
+    fun `should exception`() {
+        val comment = CommentToPost(1,1,1,"it will exceiption, now", 1)
+        WallService.createComment(0, comment)
+    }
 
     @Test
-    fun add() {
+    fun `Is no should exception`() {
         var newPost = Post(
-            id = 0,
+            id = 1,
             ownerId = 1,
             fromId = 1,
             createdBy = 1,
@@ -18,7 +24,7 @@ class WallServiceTest {
             replyPostId = 1,
             friendsOnly = 1,
             comments = Comment(
-                count = 1,
+                count = 0,
                 canClose = true,
                 canPost = true,
                 groupsCanPost = true,
@@ -61,10 +67,9 @@ class WallServiceTest {
             ),
             postponedId = true
         )
-
-        val resId = WallService.add(newPost).id
-
-        assertEquals(1, resId)
+        WallService.add(newPost)
+        val comment = CommentToPost(1,1,1,"it will exceiption, now", 1)
+        val addedComment = WallService.createComment(1, comment)
+        assert(WallService.comments.last() == addedComment)
     }
-
 }

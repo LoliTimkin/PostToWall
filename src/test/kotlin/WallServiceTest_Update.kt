@@ -21,7 +21,9 @@ class WallServiceTest_Update {
                     canClose = true,
                     canPost = true,
                     groupsCanPost = true,
-                    canOpen = true
+                    canOpen = true,
+                    postId = 1,
+                    text = "anything",
                 ),
                 copyright = Copyright(
                     id = 1,
@@ -83,7 +85,9 @@ class WallServiceTest_Update {
                 canClose = true,
                 canPost = true,
                 groupsCanPost = true,
-                canOpen = true
+                canOpen = true,
+                postId = 1,
+                text = "anything"
             ),
             copyright = Copyright(
                 id = 1,
@@ -139,7 +143,9 @@ class WallServiceTest_Update {
                 canClose = true,
                 canPost = true,
                 groupsCanPost = true,
-                canOpen = true
+                canOpen = true,
+                postId = 1,
+                text = "anything"
             ),
             copyright = Copyright(
                 id = 1,
